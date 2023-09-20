@@ -1,0 +1,21 @@
+{
+    "root": true,
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "parserOptions": {
+        "ecmaVersion": 2022
+    },
+    "rules": {
+        "brace-style": ["warn", "1tbs"],
+        "indent": ["warn", 4],
+        "curly": ["warn", "multi-or-nest", "consistent"],
+        "nonblock-statement-body-position": ["warn", "below"],
+        "arrow-parens": ["warn", "as-needed"],
+        "eol-last": ["warn", "always"],
+        "quotes": ["warn", "double"],
+        "semi": ["warn", "always"],
+        "@typescript-eslint/no-unused-vars": ["error", {"argsIgnorePattern": "^_" }],
+        "@typescript-eslint/no-namespace": "off"
+    }
+}
