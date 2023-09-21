@@ -17,7 +17,7 @@ class State {
     error?: unknown = undefined;
 }
 
-class FlashcardsetsImpl extends React.Component<Props, State> {
+class IdImpl extends React.Component<Props, State> {
     static defaultProps = new Props();
 
     state = new State();
@@ -53,7 +53,7 @@ class FlashcardsetsImpl extends React.Component<Props, State> {
     };
 }
 
-export function Flashcardsets(): React.ReactNode {
+export function Id(): React.ReactNode {
     const { id } = ReactRouter.useParams();
-    return <FlashcardsetsImpl id={id}/>;
+    return <IdImpl id={id}/>;
 }
