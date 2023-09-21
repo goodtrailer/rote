@@ -19,7 +19,7 @@ const get: Express.RequestHandler = async (req, res, next) => {
     };
 
     try {
-        const id = Number.parseInt(req.params.id);
+        const id = Number(req.params.id);
 
         const user = await Db.Pg<Models.User>("users")
             .where("id", id)

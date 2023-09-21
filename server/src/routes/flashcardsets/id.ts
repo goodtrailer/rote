@@ -14,7 +14,7 @@ export function register(upper: Express.Router) {
 
 async function lookupId(req: Express.Request, res: Express.Response)
 {
-    const id = Number.parseInt(req.params.id);
+    const id = Number(req.params.id);
 
     const flashcardset = await Db.Pg<Models.Flashcardset>("flashcardsets")
         .where("id", id)

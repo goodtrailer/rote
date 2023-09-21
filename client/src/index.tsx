@@ -8,8 +8,17 @@ import * as Pages from "./pages/pages.js";
 const router = ReactRouter.createBrowserRouter([
     {
         path: "/",
-        element: <Pages.Root />,
-        errorElement: <Pages.Error/>
+        errorElement: <Pages.Error/>,
+        children: [
+            {
+                path: "",
+                element: <Pages.Root/>,
+            },
+            {
+                path: "flashcardsets/:id",
+                element: <Pages.Flashcardsets/>,
+            },
+        ],
     }
 ]);
 

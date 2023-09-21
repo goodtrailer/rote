@@ -14,16 +14,15 @@ export class Flashcard extends React.Component<React.PropsWithChildren<Props>> {
 
     onClick = (): void => this.props.onFlip(!this.props.isFront);
 
-    onToggle = (_e: any, value: string | null): void => {
+    onToggle = (_e: unknown, value: string | null): void => {
         if (value === null)
             return;
 
         const isFront = value === "front";
         this.props.onFlip(isFront);
-    }
+    };
 
-    render = (): React.ReactNode =>
-    {
+    render = (): React.ReactNode => {
         const side = this.props.isFront ? "front" : "back";
 
         return <Joy.Card variant="outlined" size="lg"
@@ -37,12 +36,15 @@ export class Flashcard extends React.Component<React.PropsWithChildren<Props>> {
             <Joy.CardOverflow>
                 <Joy.AspectRatio variant="plain" onClick={this.onClick}>
                     <Joy.Typography level="body-lg" color="primary"
+                        sx={{
+                            fontSize: 28,
+                        }}
                         style={{
-                            alignItems: "safe center",
                             padding: "1em 2.5em",
                             overflowY: "scroll",
                             overflowWrap: "anywhere",
                             whiteSpace: "pre-wrap",
+                            alignItems: "safe center",
                         }}
                     >
                         {this.props.children}
@@ -62,5 +64,5 @@ export class Flashcard extends React.Component<React.PropsWithChildren<Props>> {
                 </Joy.ToggleButtonGroup>
             </Joy.CardOverflow>
         </Joy.Card>;
-    }
+    };
 }

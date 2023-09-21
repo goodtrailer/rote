@@ -30,23 +30,19 @@ export class FlashcardSlide extends React.Component<Props, State> {
         if (event.key !== "Enter")
             return;
 
-        if (event.currentTarget.value === "")
-        {
+        if (event.currentTarget.value === "") {
             this.setState({ isGotoError: false });
             return;
         }
 
-        try
-        {
-            this.setCard(Number.parseInt(event.currentTarget.value) - 1);
+        try {
+            this.setCard(Number(event.currentTarget.value) - 1);
             this.setState({ isGotoError: false });
             event.currentTarget.value = "";
-        }
-        catch (e)
-        {
+        } catch (e) {
             this.setState({ isGotoError: true });
         }
-    }
+    };
 
     setCard = (index: number) => {
         if (!Number.isInteger(index))
@@ -56,15 +52,18 @@ export class FlashcardSlide extends React.Component<Props, State> {
             throw new RangeError(`Out of bounds index: ${index}`);
 
         this.setState({ index, isFront: true });
-    }
+    };
 
     setCardWrapped = (index: number) => {
         if (!Number.isInteger(index))
             throw new RangeError(`Non-integer index argument: ${index}`);
 
+        if (this.props.cards.length === 0)
+            return;
+
         const wrapped = (index + this.props.cards.length) % this.props.cards.length;
         this.setCard(wrapped);
-    }
+    };
 
     render = (): React.ReactNode => {
         const card = this.props.cards[this.state.index] ?? { front: "", back: "" };
@@ -108,5 +107,5 @@ export class FlashcardSlide extends React.Component<Props, State> {
                 </Joy.Button>
             </div>
         </div>;
-    }
+    };
 }

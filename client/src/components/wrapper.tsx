@@ -1,5 +1,6 @@
 import * as Joy from "@mui/joy";
 import * as React from "react";
+import * as ReactRouter from "react-router-dom";
 
 class Props {
     style?: React.CSSProperties = undefined;
@@ -19,7 +20,7 @@ export class Wrapper extends React.Component<React.PropsWithChildren<Props>> {
                 paddingTop: 10,
                 paddingLeft: 20,
             }}>
-                <Joy.Typography level="h1">rote</Joy.Typography>
+                <Joy.Link level="h1" variant="plain" color="neutral" component={ReactRouter.Link} to={"/"}>rote</Joy.Link>
             </div>
             <div style={{
                 display: "flex",
@@ -31,5 +32,5 @@ export class Wrapper extends React.Component<React.PropsWithChildren<Props>> {
                 {this.props.children}
             </div>
         </div>;
-    }
+    };
 }

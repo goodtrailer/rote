@@ -4,6 +4,7 @@ import "dotenv/config";
 
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import typescript from "@rollup/plugin-typescript";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,5 +19,9 @@ export default defineConfig({
             "#~": url.fileURLToPath(new URL("src", import.meta.url)),
         },
     },
-    plugins: [react()],
+    esbuild: false,
+    plugins: [
+        react(),
+        typescript(),
+    ],
 });

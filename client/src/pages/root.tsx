@@ -2,8 +2,6 @@ import * as React from "react";
 
 import * as Components from "#~/components/components.js";
 
-import "#~/lib/fetch.js";
-
 export class Root extends React.Component {
     render = (): React.ReactNode => {
         const cards = [
