@@ -50,7 +50,7 @@ export class Root extends React.Component<unknown, State> {
                     </ReactRouter.Link>
                 </div>
             </div>
-            <div style={{ height: 0, marginTop: 100, display: "flex", gap: 100 }}>
+            <div style={{ marginTop: 100, display: "flex", gap: 100, justifyContent: "center" }}>
                 <Joy.Typography level="h2" textColor="neutral.plainColor">XXX users</Joy.Typography>
                 <Joy.Typography level="h2" textColor="neutral.plainColor">XXX flashcardsets</Joy.Typography>
                 <Joy.Typography level="h2" textColor="neutral.plainColor">XXX flashcards</Joy.Typography>

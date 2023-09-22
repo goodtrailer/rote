@@ -1,4 +1,7 @@
+import * as Dayjs from "dayjs";
+import * as RelativeTime from "dayjs/plugin/relativeTime";
 import * as Joy from "@mui/joy";
+import { SxProps } from "@mui/joy/styles/types";
 import * as React from "react";
 import * as ReactRouter from "react-router-dom";
 import * as Typia from "typia";
@@ -6,7 +9,8 @@ import * as Typia from "typia";
 import * as Components from "#~/components/components.js";
 import * as Shared from "rote-shared/shared.js";
 import * as Util from "#~/lib/util.js";
-import { SxProps } from "@mui/joy/styles/types";
+
+Dayjs.extend(RelativeTime);
 
 const SETS_PER_PAGE = 12;
 
@@ -118,17 +122,23 @@ export class RootImpl extends React.Component<Props, State> {
                     to={s.id.toString()}
                     style={{ minWidth: 300 }}
                 />
-                <Joy.Typography level="body-md" sx={{
-                    marginTop: 2, marginLeft: 2
-                }}>
-                    By <Joy.Link color="neutral"
-                        textColor="neutral.plainColor"
-                        component={ReactRouter.Link}
-                        to={`/users/${s.creatorId}`}
-                    >
-                        {s.creator}
-                    </Joy.Link>
-                </Joy.Typography>
+                <div style={{ display: "flex", margin: 8}}>
+                    <Joy.Typography level="body-md">
+                        By <Joy.Link color="neutral"
+                            textColor="neutral.plainColor"
+                            component={ReactRouter.Link}
+                            to={`/users/${s.creatorId}`}
+                        >
+                            {s.creator}
+                        </Joy.Link>
+                    </Joy.Typography>
+                    <div style={{ flex: "1" }}/>
+                    <Joy.Tooltip title={s.createDate.toLocaleString()}>
+                        <Joy.Typography level="body-md">
+                            {Dayjs().to(s.createDate)}
+                        </Joy.Typography>
+                    </Joy.Tooltip>
+                </div>
             </Joy.Grid>
         });
 
