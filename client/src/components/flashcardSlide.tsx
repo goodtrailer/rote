@@ -36,7 +36,11 @@ export class FlashcardSlide extends React.Component<Props, State> {
         }
 
         try {
-            this.setCard(Number(event.currentTarget.value) - 1);
+            let card = Number(event.currentTarget.value) - 1;
+            if (!Number.isInteger(card))
+                card = 0;
+
+            this.setCard(card);
             this.setState({ isGotoError: false });
             event.currentTarget.value = "";
         } catch (e) {

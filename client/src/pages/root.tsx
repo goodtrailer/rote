@@ -38,10 +38,10 @@ export class Root extends React.Component<unknown, State> {
                     gap: 15
                 }}>
                     <Joy.Typography level="h1" textColor="neutral.plainColor">
-                        A tried and true method
+                        Study efficiently
                     </Joy.Typography>
-                    <Joy.Typography textColor="neutral.plainColor">
-                        Efficiently study with flashcards, the best way to quickly memorize important vocabulary. Create your own flashcards and share them with others.
+                    <Joy.Typography textColor="neutral.plainColor" style={{ marginBottom: 5 }}>
+                        Flashcards are the best way to quickly and easily memorize important vocabulary. Create, study, and share them with others.
                     </Joy.Typography>
                     <ReactRouter.Link to="/signup">
                         <Joy.Button color="neutral" sx={{ alignSelf: "flex-start" }}>

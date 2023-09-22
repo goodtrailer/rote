@@ -34,6 +34,16 @@ const post: Express.RequestHandler = async (req, res, next) => {
             throw new RangeError("Password not 8 to 72 bytes");
         }
 
+        const existing = await Db.Pg<Models.User>("users")
+            .where("username", username)
+            .first();
+        
+        if (existing !== undefined)
+        {
+            res.status(409);
+            throw new Error("Username taken");
+        }
+
         const passhash = await Bcrypt.hash(password, 13);
         await Db.Pg<Models.User>("users").insert({ username, passhash });
 

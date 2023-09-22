@@ -12,9 +12,8 @@ export function register(upper: Express.Router) {
     Util.route(router, "/:id(\\d+)", { get, delete: del });
 }
 
-async function lookupId(req: Express.Request, res: Express.Response)
-{
-    const id = Number(req.params.id);
+async function lookupId(req: Express.Request, res: Express.Response) {
+    const id = Number(req.params["id"]);
 
     const flashcardset = await Db.Pg<Models.Flashcardset>("flashcardsets")
         .where("id", id)
@@ -42,6 +41,18 @@ const get: Express.RequestHandler = async (req, res, next) => {
             .select();
 
         const s = Util.reduce(flashcardset, Shared.Flashcardset);
+        
+        const creator = (await Db.Pg<Models.User>("users")
+            .where("id", flashcardset.creatorId)
+            .first())?.username;
+        
+        if (creator === undefined)
+        {
+            res.status(500);
+            throw new Error("Could not find creator of flashcardset");
+        }
+        s.creator = creator;
+
         const f = flashcards.map(f => Util.reduce(f, Shared.Flashcard));
 
         res.json({ flashcardset: s, flashcards: f } as ResponseBodyType);

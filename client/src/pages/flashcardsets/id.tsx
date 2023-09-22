@@ -28,9 +28,11 @@ class IdImpl extends React.Component<Props, State> {
             flashcards: Shared.Flashcard[],
         };
 
-        Util.get(`flashcardsets/${Number(this.props.id)}`,
-            Typia.createValidate<ResponseBodyType>(),
-            Util.dateReviver("createDate"))
+        Util.get(
+                `flashcardsets/${Number(this.props.id)}`,
+                Typia.createValidate<ResponseBodyType>(),
+                Util.dateReviver("createDate")
+            )
             .then(b => this.setState(b))
             .catch(e => this.setState({ error: e }));
     };

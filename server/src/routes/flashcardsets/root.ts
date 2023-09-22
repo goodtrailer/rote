@@ -16,6 +16,11 @@ export function register(upper: Express.Router) {
 }
 
 const get: Express.RequestHandler = async (req, res, next) => {
+    type ResponseBodyType = {
+        count: number,
+        flashcardsets: Shared.Flashcardset[],
+    };
+
     try
     {
         const beginQ = req.query["begin"];
@@ -25,18 +30,36 @@ const get: Express.RequestHandler = async (req, res, next) => {
     
         const countQ = req.query["count"];
         const count = typeof countQ === "string" && Number.isInteger(+countQ)
-            ? Math.max(1, +countQ)
-            : 25;
+            ? Math.max(0, +countQ)
+            : 0;
 
         const sets = await Db.Pg<Models.Flashcardset>("flashcardsets")
             .orderBy("createDate", "desc")
             .offset(begin)
             .limit(count);
 
-        console.log(`User: ${JSON.stringify(req.user)}`);
-    
-        const s = sets.map(s => Util.reduce(s, Shared.Flashcardset));
-        res.json(s);
+        const total = await Db.Pg<Models.Flashcardset>("flashcardsets")
+            .count()
+            .first();
+            
+        const t = total !== undefined ? Number(total["count"]) : 0;
+        const s = await Promise.all(sets.map(async setModel => {
+            const set = Util.reduce(setModel, Shared.Flashcardset);
+
+            const creator = (await Db.Pg<Models.User>("users")
+                .where("id", setModel.creatorId)
+                .first())?.username;
+            
+            if (creator === undefined)
+            {
+                res.status(500);
+                throw new Error("Could not find creator of flashcardset");
+            }
+            set.creator = creator;
+            return set;
+        }));
+
+        res.json({ count: t, flashcardsets: s } as ResponseBodyType);
     } catch (e) {
         Util.error(e);
         next(e);
@@ -74,10 +97,10 @@ const post: Express.RequestHandler = async (req, res, next) => {
         }
 
         const descriptionSize = Buffer.byteLength(flashcardset.description);
-        if (descriptionSize < 8 || descriptionSize > 80)
+        if (descriptionSize > 500)
         {
             res.status(400);
-            throw new RangeError("Description not 8 to 80 bytes long");
+            throw new RangeError("Description over 500 bytes long");
         }
 
         for (let i = 0; i < flashcards.length; i++)
@@ -88,14 +111,14 @@ const post: Express.RequestHandler = async (req, res, next) => {
             if (frontSize < 8 || frontSize > 3000)
             {
                 res.status(400);
-                throw new RangeError("Front not 8 to 3000 bytes long; idx = " + i);
+                throw new RangeError("Front over 3000 bytes long; idx = " + i);
             }
 
             const backSize = Buffer.byteLength(f.front);
             if (backSize < 8 || backSize > 3000)
             {
                 res.status(400);
-                throw new RangeError("Back not 8 to 3000 bytes long; idx = " + i);
+                throw new RangeError("Back over 3000 bytes long; idx = " + i);
             }
         }
 

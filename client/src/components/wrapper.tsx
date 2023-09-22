@@ -2,24 +2,31 @@ import * as Joy from "@mui/joy";
 import * as React from "react";
 import * as ReactRouter from "react-router-dom";
 
-class PageLinkProps {
-    to: string = "/";
+type PageLinkProps = {
+    to: string;
+    location?: ReactRouter.Location;
 }
 
-class PageLink extends React.Component<React.PropsWithChildren<PageLinkProps>> {
-    static defaultProps = new PageLinkProps();
-
+class PageLinkImpl extends React.Component<React.PropsWithChildren<PageLinkProps>> {
     render = (): React.ReactNode => {
+        const underline = location?.pathname === this.props.to ? "always" : "hover";
+
         return <Joy.Link level="body-md"
             color="neutral"
             textColor="neutral.plainColor"
             component={ReactRouter.Link}
             to={this.props.to}
             sx={{ marginY: "auto", transform: "translateY(4px)" }}
+            underline={underline}
         >
             {this.props.children}
         </Joy.Link>
     }
+}
+
+function PageLink(props: React.PropsWithChildren<PageLinkProps>) {
+    const location = ReactRouter.useLocation();
+    return <PageLinkImpl to={props.to} location={location}>{props.children}</PageLinkImpl>;
 }
 
 class Props {

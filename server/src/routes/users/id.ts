@@ -9,7 +9,7 @@ export function register(upper: Express.Router) {
     const router = Express.Router();
     upper.use("/", router);
 
-    Util.route(router, "/:id(\\d+)", { get });
+    Util.route(router, "/:id", { get });
 }
 
 const get: Express.RequestHandler = async (req, res, next) => {
@@ -19,7 +19,22 @@ const get: Express.RequestHandler = async (req, res, next) => {
     };
 
     try {
-        const id = Number(req.params.id);
+        const id = Number(req.params["id"]);
+
+        if (isNaN(id))
+        {
+            const user = await Db.Pg<Models.User>("users")
+                .where("username", req.params["id"])
+                .first();
+            
+            if (user === undefined)
+            {
+                res.status(404);
+                throw new ReferenceError("No user with given username found");
+            }
+
+            res.redirect(`${user.id}`);
+        }
 
         const user = await Db.Pg<Models.User>("users")
             .where("id", id)
@@ -48,7 +63,11 @@ const get: Express.RequestHandler = async (req, res, next) => {
             .limit(count);
 
         const u = Util.reduce(user, Shared.User);
-        const s = sets.map(s => Util.reduce(s, Shared.Flashcardset));
+        const s = sets.map(setModel => {
+            const set = Util.reduce(setModel, Shared.Flashcardset);
+            set.creator = u.username;
+            return set;
+        });
 
         const body: ResponseBodyType = { user: u, flashcardsets: s};
         res.json(body);
