@@ -19,10 +19,8 @@ async function lookupId(req: Express.Request, res: Express.Response) {
         .where("id", id)
         .first();
     
-    if (flashcardset === undefined) {
-        res.status(404);
-        throw new ReferenceError("No flashcardset with given id found");
-    }
+    if (flashcardset === undefined)
+        res.status(404).send("No flashcardset with given id found");
 
     return flashcardset;
 }
@@ -35,6 +33,8 @@ const get: Express.RequestHandler = async (req, res, next) => {
 
     try {
         const flashcardset = await lookupId(req, res);
+        if (flashcardset === undefined)
+            return;
 
         const flashcards = await Db.Pg<Models.Flashcard>("flashcards")
             .where("setId", flashcardset.id)
@@ -65,17 +65,19 @@ const get: Express.RequestHandler = async (req, res, next) => {
 const del: Express.RequestHandler = async (req, res, next) => {
     try {
         const flashcardset = await lookupId(req, res);
+        if (flashcardset === undefined)
+            return;
         
         if (req.user === undefined)
         {
-            res.status(401);
-            throw new Error("Must be logged in to delete flashcardset");
+            res.status(401).send("Must be logged in to delete flashcardset");
+            return;
         }
 
         if (req.user.id !== flashcardset.creatorId)
         {
-            res.status(403);
-            throw new Error("Must be creator to delete flashcardset");
+            res.status(403).send("Must be creator to delete flashcardset");
+            return;
         }
 
         await Db.Pg<Models.Flashcardset>("flashcardsets")

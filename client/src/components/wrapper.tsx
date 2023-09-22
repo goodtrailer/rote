@@ -9,7 +9,7 @@ type PageLinkProps = {
 
 class PageLinkImpl extends React.Component<React.PropsWithChildren<PageLinkProps>> {
     render = (): React.ReactNode => {
-        const underline = location?.pathname === this.props.to ? "always" : "hover";
+        const underline = this.props.location?.pathname === this.props.to ? "always" : "hover";
 
         return <Joy.Link level="body-md"
             color="neutral"

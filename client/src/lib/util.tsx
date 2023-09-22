@@ -38,3 +38,14 @@ export function get<T>(resource: string, validate: (input: T) => Typia.IValidati
         return body as T;
     });
 }
+
+export function post(resource: string, body: unknown)
+{
+    const options: RequestInit = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+    };
+
+    return req(resource, options);
+}

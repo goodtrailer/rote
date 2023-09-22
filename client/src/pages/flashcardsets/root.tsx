@@ -64,7 +64,7 @@ class State {
     error?: unknown = undefined;
 }
 
-export class RootImpl extends React.Component<Props, State> {
+class RootImpl extends React.Component<Props, State> {
     state = new State();
 
     onPageArrow = (page: number): void => {
@@ -112,8 +112,6 @@ export class RootImpl extends React.Component<Props, State> {
     render = (): React.ReactNode => {
         if (this.state.error !== undefined)
             throw this.state.error;
-
-        console.log(this.state.flashcardsets);
 
         const links = this.state.flashcardsets.map(s => {
             return <Joy.Grid xs={12} md={6} lg={4} key={s.id}>

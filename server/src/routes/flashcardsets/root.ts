@@ -75,14 +75,14 @@ const post: Express.RequestHandler = async (req, res, next) => {
     try {
         if (req.user === undefined)
         {
-            res.status(401);
-            throw new Error("Must be logged in to create a flashcardset");
+            res.status(401).send("Must be logged in to create a flashcardset");
+            return;
         }
 
         if (!Typia.is<RequestBodyType>(req.body))
         {
-            res.status(400);
-            throw new Error("Request body is not of correct type/format");
+            res.status(400).send("Request body is not of correct type/format");
+            return;
         }
 
         const user = req.user;
@@ -92,15 +92,15 @@ const post: Express.RequestHandler = async (req, res, next) => {
         const nameSize = Buffer.byteLength(flashcardset.name);
         if (nameSize < 8 || nameSize > 80)
         {
-            res.status(400);
-            throw new RangeError("Name not 8 to 80 bytes long");
+            res.status(400).send("Name not 8 to 80 bytes long");
+            return;
         }
 
         const descriptionSize = Buffer.byteLength(flashcardset.description);
         if (descriptionSize > 500)
         {
-            res.status(400);
-            throw new RangeError("Description over 500 bytes long");
+            res.status(400).send("Description over 500 bytes long");
+            return;
         }
 
         for (let i = 0; i < flashcards.length; i++)
@@ -110,15 +110,15 @@ const post: Express.RequestHandler = async (req, res, next) => {
             const frontSize = Buffer.byteLength(f.front);
             if (frontSize < 8 || frontSize > 3000)
             {
-                res.status(400);
-                throw new RangeError("Front over 3000 bytes long; idx = " + i);
+                res.status(400).send("Front over 3000 bytes long; idx = " + i);
+                return;
             }
 
             const backSize = Buffer.byteLength(f.front);
             if (backSize < 8 || backSize > 3000)
             {
-                res.status(400);
-                throw new RangeError("Back over 3000 bytes long; idx = " + i);
+                res.status(400).send("Back over 3000 bytes long; idx = " + i);
+                return;
             }
         }
 
@@ -140,7 +140,7 @@ const post: Express.RequestHandler = async (req, res, next) => {
             throw new Error("Flashcardset id was not set");
 
         res.status(201)
-            .set("Location", `flashcardsets/${setId}`)
+            .set("Location", `/flashcardsets/${setId}`)
             .end();
     } catch (e) {
         Util.error(e);

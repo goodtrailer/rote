@@ -21,17 +21,17 @@ const post: Express.RequestHandler = async (req, res, next) => {
         const username: string = req.body["username"];
         const password: string = req.body["password"];
 
-        console.log(await Bcrypt.hash("0157", 13));
-
-        if (username.length < 8 || username.length > 16) {
-            res.status(400);
-            throw new RangeError("Username not 8 to 16 bytes");
+        if (username.length < 8 || username.length > 16)
+        {
+            res.status(400).send("Username not 8 to 16 bytes");
+            return;
         }
 
         const passwordSize = Buffer.byteLength(password, "utf8");
-        if (passwordSize < 8 || passwordSize > 72) {
-            res.status(400);
-            throw new RangeError("Password not 8 to 72 bytes");
+        if (passwordSize < 8 || passwordSize > 72)
+        {
+            res.status(400).send("Password not 8 to 72 bytes");
+            return;
         }
 
         const existing = await Db.Pg<Models.User>("users")
@@ -40,14 +40,17 @@ const post: Express.RequestHandler = async (req, res, next) => {
         
         if (existing !== undefined)
         {
-            res.status(409);
-            throw new Error("Username taken");
+            res.status(409).send("Username taken");
+            return;
         }
 
         const passhash = await Bcrypt.hash(password, 13);
-        await Db.Pg<Models.User>("users").insert({ username, passhash });
+        const id = (await Db.Pg<Models.User>("users").
+            insert({ username, passhash }, ["id"]))[0].id;
 
-        res.redirect("/");
+        res.status(201)
+            .set("Location", `/users/${id}`)
+            .end();
     } catch (e) {
         Util.error(e);
         next(e);

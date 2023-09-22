@@ -29,8 +29,8 @@ const get: Express.RequestHandler = async (req, res, next) => {
             
             if (user === undefined)
             {
-                res.status(404);
-                throw new ReferenceError("No user with given username found");
+                res.status(404).send("No user with given username found");
+                return;
             }
 
             res.redirect(`${user.id}`);
@@ -42,8 +42,8 @@ const get: Express.RequestHandler = async (req, res, next) => {
         
         if (user === undefined)
         {
-            res.status(404);
-            throw new ReferenceError("No user with given id found");
+            res.status(404).send("No user with given id found");
+            return;
         }
 
         const beginQ = req.query["begin"];
@@ -54,7 +54,7 @@ const get: Express.RequestHandler = async (req, res, next) => {
         const countQ = req.query["count"];
         const count = typeof countQ === "string" && Number.isInteger(+countQ)
             ? Math.max(1, +countQ)
-            : 25;
+            : 0;
 
         const sets = await Db.Pg<Models.Flashcardset>("flashcardsets")
             .where("creatorId", id)

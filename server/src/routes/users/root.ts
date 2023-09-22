@@ -14,8 +14,8 @@ export function register(upper: Express.Router) {
 const get: Express.RequestHandler = (req, res) => {
     if (req.user === undefined)
     {
-        res.status(401);
-        throw new Error("Must be logged in to see current user");
+        res.status(401).send("Must be logged in to see current user");
+        return;
     }
 
     res.redirect(`./${req.user.id}`);

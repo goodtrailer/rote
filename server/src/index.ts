@@ -19,7 +19,7 @@ app.set("view engine", "ejs");
 
 // Middleware
 
-app.use(Cors());
+app.use(Cors({ exposedHeaders: ["Location"] }));
 app.use(ExpressSession({ secret: Constants.SECRET, resave: false, saveUninitialized: true }));
 app.use(Authentication.initialize());
 app.use(Express.json());
@@ -30,8 +30,7 @@ app.use(Express.urlencoded({ extended: false }));
 (await import("./routes/root.js")).register(app);
 
 app.use((_req: Express.Request, res: Express.Response) => {
-    res.status(404);
-    throw new ReferenceError("API endpoint does not exist");
+    res.status(404).send("API endpoint does not exist");
 });
 
 app.listen(Constants.PORT, () => console.log(`Listening on port ${Constants.PORT}`));
