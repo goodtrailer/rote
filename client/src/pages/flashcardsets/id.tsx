@@ -39,12 +39,12 @@ class IdImpl extends React.Component<Props, State> {
         if (this.state.error !== undefined)
             throw this.state.error;
 
-        return <Components.Wrapper style={{ marginLeft: 30, marginRight: 30 }}>
+        return <Components.Wrapper>
             <Components.FlashcardSlide cards={this.state.flashcards}
                 style={{
                     width: "100%",
                     minWidth: 450, maxWidth: 700,
-                    marginTop: 30, marginBottom: 30,
+                    marginBottom: 30,
                 }}
             />
             <Joy.Typography level="h3" variant="plain" color="neutral">{this.state.flashcardset?.name}</Joy.Typography>

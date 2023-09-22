@@ -4,7 +4,7 @@ import * as React from "react";
 
 class Props {
     isFront: boolean = true;
-    sx?: SxProps = undefined;
+    style?: SxProps = undefined;
 
     onFlip: (isFront: boolean) => void = () => {};
 }
@@ -30,7 +30,7 @@ export class Flashcard extends React.Component<React.PropsWithChildren<Props>> {
                 cursor: "pointer",
                 textAlign: "center",
                 boxShadow: "lg",
-                ...this.props.sx,
+                ...this.props.style
             }}
         >
             <Joy.CardOverflow>

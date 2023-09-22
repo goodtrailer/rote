@@ -39,15 +39,21 @@ export class Wrapper extends React.Component<React.PropsWithChildren<Props>> {
             <div style={{
                 paddingTop: 10,
                 paddingLeft: 20,
+                paddingRight: 30,
                 display: "flex",
                 gap: 30,
+                zIndex: 50,
             }}>
                 <Joy.Link level="h1" variant="plain" color="neutral" component={ReactRouter.Link} to={"/"} sx={{ marginY: "auto" }}>rote</Joy.Link>
                 <PageLink to={"/flashcardsets"}>flashcards</PageLink>
                 <PageLink to={"/profile"}>profile</PageLink>
                 <PageLink to={"/about"}>about</PageLink>
+                <div style={{ flex: "1" }}/>
+                <PageLink to={"/signup"}>sign up</PageLink>
             </div>
             <div style={{
+                padding: 30,
+                margin: 0,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
