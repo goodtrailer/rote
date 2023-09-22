@@ -32,7 +32,7 @@ class SignupImpl extends React.Component<Props, State> {
             return;
         }
 
-        Util.post("signup", { username, password })
+        Util.post("users", { username, password })
             .then(async res => {
                 if (res.status !== 201)
                 {
@@ -41,11 +41,10 @@ class SignupImpl extends React.Component<Props, State> {
                 }
 
                 const loginRes = await Util.post("login", { username, password });
+                console.log(loginRes);
+
                 if (loginRes.status !== 200)
-                {
-                    console.log("GOT STATUS: " + loginRes.status);
                     throw new Error("Failed to automatically log in; try logging in manually?");
-                }
 
                 this.props.navigate(res.headers.get("Location") ?? "/users");
             })

@@ -16,6 +16,10 @@ export function dateReviver(...keys: string[]) {
 
 export function req(resource: string, options?: RequestInit | undefined) {
     const destination = new URL(resource, import.meta.env.VITE_PROXY);
+    
+    if (options !== undefined)
+        options.credentials ??= "include";
+
     return fetch(destination, options);
 }
 
