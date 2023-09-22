@@ -77,7 +77,7 @@ class SignupImpl extends React.Component<Props, State> {
                         <Joy.FormLabel>Confirm password</Joy.FormLabel>
                         <Joy.Input name="confirm" type="password" placeholder="don't mistype!"/>
                     </Joy.FormControl>
-                    <Joy.Button type="submit" style={{ marginTop: 20 }}>Submit</Joy.Button>
+                    <Joy.Button type="submit" color="neutral" style={{ marginTop: 20 }}>Submit</Joy.Button>
                 </Joy.Card>
             </form>
         </Components.Wrapper>;
