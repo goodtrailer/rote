@@ -42,7 +42,9 @@ class IdImpl extends React.Component<Props> {
 
         return <Components.Wrapper>
             <Joy.Typography level="h1">{user?.username}</Joy.Typography>
-            <Joy.Typography level="body-md">Joined {createDate}</Joy.Typography>
+            <Joy.Tooltip title={user?.createDate.toLocaleString()}>
+                <Joy.Typography level="body-md">Joined {createDate}</Joy.Typography>
+            </Joy.Tooltip>
             <Components.FlashcardsetListing path={`/users/${this.props.id}`}
                 style={{
                     flex: "1",
