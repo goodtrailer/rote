@@ -2,12 +2,11 @@
 
 ## Client
 ### High Priority
-* flashcardsets
-* flashcardsets/:id (stars)
-* users/:id
-* signup
-* login
-* logout
+* /flashcardsets/:id (stars, delete)
+* /flashcardsets/new
+* /users/:id
+* /login
+* wrapper (logout, profile)
 ### Low Priority
 * flashcardsets/:id (editing)
 * could reuse page arrows for flashcard slide, though IMO it looks bad so maybe not
@@ -16,7 +15,6 @@
 ### High Priority
 * POST users/:id/stars
 * DELETE users/:id/stars/:setId
-* actual CORS support
 ### Low Priority
 * PUT flashcardsets/:id
 
