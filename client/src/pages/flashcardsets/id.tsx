@@ -91,7 +91,7 @@ class IdImpl extends React.Component<Props, State> {
 
         const isOwner = set !== undefined && user?.id === set?.creatorId;
 
-        return <Components.Wrapper>
+        return <Components.Wrapper style={{ textAlign: "center" }}>
             <Components.FlashcardSlide cards={cards}
                 style={{
                     width: "100%",
@@ -112,7 +112,9 @@ class IdImpl extends React.Component<Props, State> {
             <Joy.Typography level="title-lg">
                 by <Components.Link to={`/users/${set?.creatorId}`}>{set?.creator}</Components.Link>
             </Joy.Typography>
-            <Joy.Typography level="body-lg">{set?.description}</Joy.Typography>
+            <Joy.Typography level="body-lg" sx={{ maxWidth: "50%", minWidth: 450 }}>
+                {set?.description}
+            </Joy.Typography>
             <Joy.Modal open={isDeleting} onClose={this.onCancel}>
                 <Joy.ModalDialog>
                     <Joy.ModalClose/>
