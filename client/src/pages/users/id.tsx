@@ -31,7 +31,7 @@ class IdImpl extends React.Component<Props> {
         Util.get(`/users/${this.props.id}`, validate, reviver)
             .then(b => this.setState(b))
             .catch(e => this.setState({ error: e }));
-    }
+    };
 
     render = (): React.ReactNode => {
         if (this.state.error !== undefined)
@@ -52,7 +52,7 @@ class IdImpl extends React.Component<Props> {
                 }}
             />
         </Components.Wrapper>;
-    }
+    };
 }
 
 export function Id(): React.ReactNode {

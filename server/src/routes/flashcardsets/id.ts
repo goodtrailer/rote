@@ -46,8 +46,7 @@ const get: Express.RequestHandler = async (req, res, next) => {
             .where("id", flashcardset.creatorId)
             .first())?.username;
         
-        if (creator === undefined)
-        {
+        if (creator === undefined) {
             res.status(500);
             throw new Error("Could not find creator of flashcardset");
         }
@@ -60,7 +59,7 @@ const get: Express.RequestHandler = async (req, res, next) => {
         Util.error(e);
         next(e);
     }
-}
+};
 
 const del: Express.RequestHandler = async (req, res, next) => {
     try {
@@ -68,14 +67,12 @@ const del: Express.RequestHandler = async (req, res, next) => {
         if (flashcardset === undefined)
             return;
         
-        if (req.user === undefined)
-        {
+        if (req.user === undefined) {
             res.status(401).send("Must be logged in to delete flashcardset");
             return;
         }
 
-        if (req.user.id !== flashcardset.creatorId)
-        {
+        if (req.user.id !== flashcardset.creatorId) {
             res.status(403).send("Must be creator to delete flashcardset");
             return;
         }
@@ -89,4 +86,4 @@ const del: Express.RequestHandler = async (req, res, next) => {
         Util.error(e);
         next(e);
     }
-}
+};

@@ -28,9 +28,9 @@ class SignupImpl extends React.Component<Props, State> {
         Util.get("users", Typia.createValidate<ResponseBodyType>(), Util.dateReviver("createDate"))
             .then(_ => this.props.navigate("/flashcardsets", { replace: true }))
             .catch(console.log);
-    }
+    };
 
-    onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
         e.preventDefault();
 
         const data = new FormData(e.currentTarget);
@@ -39,16 +39,14 @@ class SignupImpl extends React.Component<Props, State> {
         const password = data.get("password");
         const confirm = data.get("confirm");
 
-        if (password !== confirm)
-        {
+        if (password !== confirm) {
             this.setState({ issue: "Passwords do not match" });
             return;
         }
 
         Util.post("users", { username, password })
             .then(async res => {
-                if (res.status !== 201)
-                {
+                if (res.status !== 201) {
                     this.setState({ issue: await res.text() });
                     return;
                 }
@@ -61,7 +59,7 @@ class SignupImpl extends React.Component<Props, State> {
                 this.props.navigate(res.headers.get("Location") ?? "/users");
             })
             .catch(e => this.setState({ error: e }));
-    }
+    };
 
     render = (): React.ReactNode => {
         if (this.state.error !== undefined)
@@ -95,7 +93,7 @@ class SignupImpl extends React.Component<Props, State> {
                 Already have an account? <Components.Link ul="always" to="/login">Log in</Components.Link>
             </Joy.Typography>
         </Components.Wrapper>;
-    }
+    };
 }
 
 export function Signup(): React.ReactNode {

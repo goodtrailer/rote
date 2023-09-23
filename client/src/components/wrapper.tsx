@@ -26,8 +26,8 @@ class PageLinkImpl extends React.Component<React.PropsWithChildren<PageLinkProps
             disabled={this.props.disabled}
         >
             {this.props.children}
-        </Link>
-    }
+        </Link>;
+    };
 }
 
 function PageLink(props: React.PropsWithChildren<PageLinkProps>) {
@@ -57,7 +57,7 @@ export class Wrapper extends React.Component<React.PropsWithChildren<Props>, Sta
         Util.get("users", Typia.createValidate<ResponseBodyType>(), Util.dateReviver("createDate"))
             .then(b => this.setState({ user: b.user }))
             .catch(_ => this.setState({ user: undefined }));
-    }
+    };
 
     render = (): React.ReactNode => {
         const user = this.state.user;

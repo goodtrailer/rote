@@ -18,8 +18,7 @@ export function register(upper: Express.Router) {
 }
 
 const get: Express.RequestHandler = (req, res) => {
-    if (req.user === undefined)
-    {
+    if (req.user === undefined) {
         res.status(401).send("Must be logged in to see current user");
         return;
     }
@@ -28,22 +27,20 @@ const get: Express.RequestHandler = (req, res) => {
         pathname: `/users/${req.user.id}`,
         query: req.query as QueryString.ParsedUrlQueryInput,
     }));
-}
+};
 
 const post: Express.RequestHandler = async (req, res, next) => {
     try {
         const username: string = req.body["username"];
         const password: string = req.body["password"];
 
-        if (username.length < 8 || username.length > 16)
-        {
+        if (username.length < 8 || username.length > 16) {
             res.status(400).send("Username not 8 to 16 bytes");
             return;
         }
 
         const passwordSize = Buffer.byteLength(password, "utf8");
-        if (passwordSize < 8 || passwordSize > 72)
-        {
+        if (passwordSize < 8 || passwordSize > 72) {
             res.status(400).send("Password not 8 to 72 bytes");
             return;
         }
@@ -52,8 +49,7 @@ const post: Express.RequestHandler = async (req, res, next) => {
             .where("username", username)
             .first();
         
-        if (existing !== undefined)
-        {
+        if (existing !== undefined) {
             res.status(409).send("Username taken");
             return;
         }

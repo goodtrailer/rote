@@ -31,7 +31,7 @@ class LogoutImpl extends React.Component<Props, State> {
             throw this.state.error;
 
         return <Components.Wrapper/>;
-    }
+    };
 }
 
 export function Logout(): React.ReactNode {

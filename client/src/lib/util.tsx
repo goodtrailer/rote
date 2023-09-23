@@ -43,8 +43,7 @@ export function get<T>(resource: string, validate: (input: T) => Typia.IValidati
     });
 }
 
-export function post(resource: string, body: unknown)
-{
+export function post(resource: string, body: unknown) {
     const options: RequestInit = {
         method: "POST",
         headers: { "Content-Type": "application/json" },

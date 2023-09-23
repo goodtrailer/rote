@@ -11,6 +11,6 @@ export class About extends React.Component {
             <Joy.Typography style={{ marginTop: 20, maxWidth: "60%", minWidth: 400 }}>
                 Hello! This is the first website I've ever made. It took roughly two weeks, much longer than anticipated. I mostly stick to desktop and low-level programming, so this has been quite the learning experience. Check out the GitHub repository for a rough outline of the tech stack I used.
             </Joy.Typography>
-        </Components.Wrapper>
-    }
+        </Components.Wrapper>;
+    };
 }

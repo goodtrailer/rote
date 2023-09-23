@@ -27,11 +27,11 @@ class RootImpl extends React.Component<Props, State> {
         Util.get("users", Typia.createValidate<ResponseBodyType>(), Util.dateReviver("createDate"))
             .then(_ => this.props.navigate("/flashcardsets", { replace: true }))
             .catch(console.log);
-    }
+    };
 
     onFlip = (isFront: boolean): void => {
         this.setState({ isFront });
-    }
+    };
 
     render = (): React.ReactNode => {
         const text = this.state.isFront

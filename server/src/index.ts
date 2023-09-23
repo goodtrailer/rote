@@ -24,7 +24,7 @@ const corsOptions: Cors.CorsOptions = {
     exposedHeaders: ["Location", "Set-Cookie"],
     credentials: true,
     maxAge: 604800,
- };
+};
 
 app.use(Cors(corsOptions));
 app.use(ExpressSession({ secret: Constants.SECRET, resave: false, saveUninitialized: true, cookie: { maxAge: 604800, secure: false, }}));

@@ -13,11 +13,11 @@ export class PageArrows extends React.Component<Props> {
 
     onLeft = (): void => {
         this.props.onClick(Math.max(0, this.props.page - 1));
-    }
+    };
 
     onRight = (): void => {
         this.props.onClick(Math.min(this.props.pageCount - 1, this.props.page + 1));
-    }
+    };
 
     render = (): React.ReactNode => {
         const isLeftDisabled = this.props.page <= 0;
@@ -39,5 +39,5 @@ export class PageArrows extends React.Component<Props> {
                 {"->"}
             </Joy.Button>
         </div>;
-    }
+    };
 }

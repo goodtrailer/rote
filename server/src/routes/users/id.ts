@@ -25,14 +25,12 @@ const get: Express.RequestHandler = async (req, res, next) => {
     try {
         const id = Number(req.params["id"]);
 
-        if (isNaN(id))
-        {
+        if (isNaN(id)) {
             const user = await Db.Pg<Models.User>("users")
                 .where("username", req.params["id"])
                 .first();
             
-            if (user === undefined)
-            {
+            if (user === undefined) {
                 res.status(404).send("No user with given username found");
                 return;
             }
@@ -47,8 +45,7 @@ const get: Express.RequestHandler = async (req, res, next) => {
             .where("id", id)
             .first();
         
-        if (user === undefined)
-        {
+        if (user === undefined) {
             res.status(404).send("No user with given id found");
             return;
         }
@@ -88,4 +85,4 @@ const get: Express.RequestHandler = async (req, res, next) => {
         Util.error(e);
         next(e);
     }
-}
+};

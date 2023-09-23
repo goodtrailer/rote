@@ -20,8 +20,7 @@ export function route(
     router.all(path, (req, res, next) => {
         const method = req.method.toLowerCase();
 
-        if (!(method in handlers))
-        {
+        if (!(method in handlers)) {
             res.status(405)
                 .set("Allow", Object.keys(handlers).join(",").toUpperCase())
                 .end();

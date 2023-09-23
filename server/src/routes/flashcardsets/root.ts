@@ -21,8 +21,7 @@ const get: Express.RequestHandler = async (req, res, next) => {
         flashcardsets: Shared.Flashcardset[],
     };
 
-    try
-    {
+    try {
         const beginQ = req.query["begin"];
         const begin = (typeof beginQ === "string" && Number.isInteger(+beginQ))
             ? +beginQ
@@ -50,8 +49,7 @@ const get: Express.RequestHandler = async (req, res, next) => {
                 .where("id", setModel.creatorId)
                 .first())?.username;
             
-            if (creator === undefined)
-            {
+            if (creator === undefined) {
                 res.status(500);
                 throw new Error("Could not find creator of flashcardset");
             }
@@ -73,14 +71,12 @@ const post: Express.RequestHandler = async (req, res, next) => {
     };
 
     try {
-        if (req.user === undefined)
-        {
+        if (req.user === undefined) {
             res.status(401).send("Must be logged in to create a flashcardset");
             return;
         }
 
-        if (!Typia.is<RequestBodyType>(req.body))
-        {
+        if (!Typia.is<RequestBodyType>(req.body)) {
             res.status(400).send("Request body is not of correct type/format");
             return;
         }
@@ -90,33 +86,28 @@ const post: Express.RequestHandler = async (req, res, next) => {
         const flashcards = req.body.flashcards;
 
         const nameSize = Buffer.byteLength(flashcardset.name);
-        if (nameSize < 8 || nameSize > 80)
-        {
+        if (nameSize < 8 || nameSize > 80) {
             res.status(400).send("Name not 8 to 80 bytes long");
             return;
         }
 
         const descriptionSize = Buffer.byteLength(flashcardset.description);
-        if (descriptionSize > 500)
-        {
+        if (descriptionSize > 500) {
             res.status(400).send("Description over 500 bytes long");
             return;
         }
 
-        for (let i = 0; i < flashcards.length; i++)
-        {
+        for (let i = 0; i < flashcards.length; i++) {
             const f = flashcards[i];
 
             const frontSize = Buffer.byteLength(f.front);
-            if (frontSize < 8 || frontSize > 3000)
-            {
+            if (frontSize < 8 || frontSize > 3000) {
                 res.status(400).send("Front over 3000 bytes long; idx = " + i);
                 return;
             }
 
             const backSize = Buffer.byteLength(f.front);
-            if (backSize < 8 || backSize > 3000)
-            {
+            if (backSize < 8 || backSize > 3000) {
                 res.status(400).send("Back over 3000 bytes long; idx = " + i);
                 return;
             }

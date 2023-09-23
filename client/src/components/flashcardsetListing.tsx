@@ -34,11 +34,11 @@ class FlashcardLink extends React.Component<FlashcardLinkProps, FlashcardLinkSta
 
     onHover = (): void => {
         this.setState({ isFront: false });
-    }
+    };
 
     onUnhover = (): void => {
         this.setState({ isFront: true });
-    }
+    };
 
     render = (): React.ReactNode => {
         const text = this.state.isFront ? this.props.front : this.props.back;
@@ -51,7 +51,7 @@ class FlashcardLink extends React.Component<FlashcardLinkProps, FlashcardLinkSta
                 {text}
             </Flashcard>
         </ReactRouter.Link>;
-    }
+    };
 }
 
 type Props = {
@@ -76,12 +76,12 @@ class FlashcardsetListingImpl extends React.Component<Props, State> {
     onPageArrow = (page: number): void => {
         this.props.setQueryParams({ page: (page + 1).toString() }, { replace: true });
         this.setPage(page);
-    }
+    };
 
     componentDidMount = (): void => {
-        let page = Number(this.props.queryParams.get("page") ?? NaN) - 1;
+        const page = Number(this.props.queryParams.get("page") ?? NaN) - 1;
         this.setPage(page);
-    }
+    };
 
     setPage = (page: number): void => {
         type ResponseBodyType = {
@@ -102,8 +102,7 @@ class FlashcardsetListingImpl extends React.Component<Props, State> {
                 const pageCount = Math.ceil(b.count / SETS_PER_PAGE);
                 let flashcardsets = b.flashcardsets;
 
-                if (!Number.isInteger(page) || page < 0 || page >= pageCount)
-                {
+                if (!Number.isInteger(page) || page < 0 || page >= pageCount) {
                     this.props.queryParams.delete("page");
                     this.props.setQueryParams(this.props.queryParams, { replace: true });
                     page = 0;
@@ -115,7 +114,7 @@ class FlashcardsetListingImpl extends React.Component<Props, State> {
                 this.setState({ page, pageCount, flashcardsets });
             })
             .catch(e => this.setState({ error: e }));
-    }
+    };
 
     render = (): React.ReactNode => {
         if (this.state.error !== undefined)
@@ -141,7 +140,7 @@ class FlashcardsetListingImpl extends React.Component<Props, State> {
                         </Joy.Typography>
                     </Joy.Tooltip>
                 </div>
-            </Joy.Grid>
+            </Joy.Grid>;
         });
 
         return <div style={{
@@ -163,8 +162,8 @@ class FlashcardsetListingImpl extends React.Component<Props, State> {
                 page={this.state.page}
                 onClick={this.onPageArrow}
             />
-        </div>
-    }
+        </div>;
+    };
 }
 
 export function FlashcardsetListing(props: Omit<Props, "queryParams" | "setQueryParams">) {

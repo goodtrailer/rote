@@ -13,14 +13,12 @@ export function register(upper: Express.Router) {
 
 const post: Express.RequestHandler = (req, res, next) => {
     const cb: Passport.AuthenticateCallback = (err, user, info, status) => {
-        if (err)
-        {
+        if (err) {
             next(err);
             return;
         }
 
-        if (!user)
-        {
+        if (!user) {
             const code = (Array.isArray(status) ? status[0] : status) ?? 401;
             const message = (info as PassportLocal.IVerifyOptions).message;
 
@@ -28,9 +26,8 @@ const post: Express.RequestHandler = (req, res, next) => {
             return;
         }
 
-        req.login(user, (err) => {
-            if (err)
-            {
+        req.login(user, err => {
+            if (err) {
                 next(err);
                 return;
             }
@@ -40,4 +37,4 @@ const post: Express.RequestHandler = (req, res, next) => {
     };
 
     Passport.authenticate("local", cb)(req, res, next);
-}
+};

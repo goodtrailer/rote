@@ -11,8 +11,7 @@ export function register(upper: Express.Router) {
 
 const del: Express.RequestHandler = (req, res, next) => {
     req.logout(e => {
-        if (e)
-        {
+        if (e) {
             next(e);
             return;
         }

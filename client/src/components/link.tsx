@@ -26,5 +26,5 @@ export class Link extends React.Component<React.PropsWithChildren<Props>> {
         >
             {this.props.children}
         </Joy.Link>;
-    }
+    };
 }

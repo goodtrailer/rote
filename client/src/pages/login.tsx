@@ -28,9 +28,9 @@ class LoginImpl extends React.Component<Props, State> {
         Util.get("users", Typia.createValidate<ResponseBodyType>(), Util.dateReviver("createDate"))
             .then(_ => this.props.navigate("/flashcardsets", { replace: true }))
             .catch(console.log);
-    }
+    };
 
-    onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
         e.preventDefault();
 
         const data = new FormData(e.currentTarget);
@@ -40,8 +40,7 @@ class LoginImpl extends React.Component<Props, State> {
 
         Util.post("login", { username, password })
             .then(async res => {
-                if (res.status !== 200 && res.status < 500)
-                {
+                if (res.status !== 200 && res.status < 500) {
                     this.setState({ issue: await res.text() });
                     return;
                 }
@@ -52,7 +51,7 @@ class LoginImpl extends React.Component<Props, State> {
                 this.props.navigate("/flashcardsets");
             })
             .catch(e => this.setState({ error: e }));
-    }
+    };
 
     render = (): React.ReactNode => {
         if (this.state.error !== undefined)
@@ -82,7 +81,7 @@ class LoginImpl extends React.Component<Props, State> {
                 Don't have an account? <Components.Link ul="always" to="/signup">Sign up</Components.Link>
             </Joy.Typography>
         </Components.Wrapper>;
-    }
+    };
 }
 
 export function Login(): React.ReactNode {
