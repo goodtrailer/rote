@@ -14,7 +14,7 @@ import { PageArrows } from "./pageArrows";
 
 Dayjs.extend(RelativeTime);
 
-const SETS_PER_PAGE = 12;
+const SETS_PER_PAGE = 6;
 
 type FlashcardLinkProps = {
     front: string,
