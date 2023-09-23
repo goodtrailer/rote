@@ -1,6 +1,6 @@
 import * as Joy from "@mui/joy";
 import * as React from "react";
-import * as ReactRouter from "react-router";
+import * as ReactRouter from "react-router-dom";
 
 import * as Components from "#~/components/components.js";
 import * as Util from "#~/lib/util.js";
@@ -65,6 +65,9 @@ class LoginImpl extends React.Component<Props, State> {
                     <Joy.Button type="submit" color="neutral" style={{ marginTop: 20 }}>Submit</Joy.Button>
                 </Joy.Card>
             </form>
+            <Joy.Typography level="body-md" style={{ marginTop: 10 }}>
+                Don't have an account? <Components.Link ul="always" to="/signup">Sign up</Components.Link>
+            </Joy.Typography>
         </Components.Wrapper>;
     }
 }

@@ -41,7 +41,6 @@ class SignupImpl extends React.Component<Props, State> {
                 }
 
                 const loginRes = await Util.post("login", { username, password });
-                console.log(loginRes);
 
                 if (loginRes.status !== 200)
                     throw new Error("Failed to automatically log in; try logging in manually?");
@@ -79,6 +78,9 @@ class SignupImpl extends React.Component<Props, State> {
                     <Joy.Button type="submit" color="neutral" style={{ marginTop: 20 }}>Submit</Joy.Button>
                 </Joy.Card>
             </form>
+            <Joy.Typography level="body-md" style={{ marginTop: 10 }}>
+                Already have an account? <Components.Link ul="always" to="/login">Log in</Components.Link>
+            </Joy.Typography>
         </Components.Wrapper>;
     }
 }

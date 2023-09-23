@@ -27,6 +27,10 @@ const router = ReactRouter.createBrowserRouter([
                 element: <Pages.Login/>,
             },
             {
+                path: "logout",
+                element: <Pages.Logout/>
+            },
+            {
                 path: "signup",
                 element: <Pages.Signup/>,
             },

@@ -8,12 +8,8 @@ export function register(upper: Express.Router) {
     const router = Express.Router();
     upper.use("/login", router);
 
-    Util.route(router, "/", { get, post });
+    Util.route(router, "/", { post });
 }
-
-const get: Express.RequestHandler = (_req, res) => {
-    res.render("login");
-};
 
 const post: Express.RequestHandler = (req, res, next) => {
     const cb: Passport.AuthenticateCallback = (err, user, info, status) => {
@@ -32,7 +28,15 @@ const post: Express.RequestHandler = (req, res, next) => {
             return;
         }
 
-        res.status(200).end();
+        req.login(user, (err) => {
+            if (err)
+            {
+                next(err);
+                return;
+            }
+
+            res.status(200).end();
+        });
     };
 
     Passport.authenticate("local", cb)(req, res, next);

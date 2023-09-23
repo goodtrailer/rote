@@ -114,6 +114,8 @@ class RootImpl extends React.Component<Props, State> {
             throw this.state.error;
 
         const links = this.state.flashcardsets.map(s => {
+            const to = `/users/${s.creatorId}`;
+
             return <Joy.Grid xs={12} md={6} lg={4} key={s.id}>
                 <FlashcardLink front={s.name}
                     back={s.description || "no description"}
@@ -122,13 +124,7 @@ class RootImpl extends React.Component<Props, State> {
                 />
                 <div style={{ display: "flex", margin: 8}}>
                     <Joy.Typography level="body-md">
-                        By <Joy.Link color="neutral"
-                            textColor="neutral.plainColor"
-                            component={ReactRouter.Link}
-                            to={`/users/${s.creatorId}`}
-                        >
-                            {s.creator}
-                        </Joy.Link>
+                        By <Components.Link to={to}>{s.creator}</Components.Link>
                     </Joy.Typography>
                     <div style={{ flex: "1" }}/>
                     <Joy.Tooltip title={s.createDate.toLocaleString()}>

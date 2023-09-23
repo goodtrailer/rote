@@ -5,7 +5,6 @@
 * /flashcardsets/:id (stars, delete)
 * /flashcardsets/new
 * /users/:id
-* /login
 * wrapper (logout, profile)
 ### Low Priority
 * flashcardsets/:id (editing)
