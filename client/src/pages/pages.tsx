@@ -1,3 +1,4 @@
+export * from "./about.js";
 export * from "./error.js";
 export * from "./login.js";
 export * from "./logout.js";

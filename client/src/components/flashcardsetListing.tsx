@@ -1,9 +1,9 @@
 import * as Dayjs from "dayjs";
-import * as RelativeTime from "dayjs/plugin/relativeTime";
 import * as Joy from "@mui/joy";
 import { SxProps } from "@mui/joy/styles/types";
 import * as React from "react";
 import * as ReactRouter from "react-router-dom";
+import * as RelativeTime from "dayjs/plugin/relativeTime";
 import * as Typia from "typia";
 
 import * as Shared from "rote-shared/shared.js";
@@ -74,7 +74,7 @@ class FlashcardsetListingImpl extends React.Component<Props, State> {
     state = new State();
 
     onPageArrow = (page: number): void => {
-        this.props.setQueryParams({ page: (page + 1).toString() });
+        this.props.setQueryParams({ page: (page + 1).toString() }, { replace: true });
         this.setPage(page);
     }
 
@@ -105,7 +105,7 @@ class FlashcardsetListingImpl extends React.Component<Props, State> {
                 if (!Number.isInteger(page) || page < 0 || page >= pageCount)
                 {
                     this.props.queryParams.delete("page");
-                    this.props.setQueryParams(this.props.queryParams);
+                    this.props.setQueryParams(this.props.queryParams, { replace: true });
                     page = 0;
 
                     const b1 = await Util.get(`${path}?begin=0&count=${count}`, validate, reviver);

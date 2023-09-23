@@ -4,8 +4,6 @@
 ### High Priority
 * /flashcardsets/:id (stars, delete)
 * /flashcardsets/new
-* /users/:id
-* wrapper (logout, profile)
 ### Low Priority
 * flashcardsets/:id (editing)
 * could reuse page arrows for flashcard slide, though IMO it looks bad so maybe not
