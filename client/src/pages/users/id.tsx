@@ -40,17 +40,12 @@ class IdImpl extends React.Component<Props> {
         const user = this.state.user;
         const createDate = user?.createDate.toLocaleDateString();
 
-        return <Components.Wrapper>
+        return <Components.Wrapper style={{ height: "100%" }}>
             <Joy.Typography level="h1">{user?.username}</Joy.Typography>
             <Joy.Tooltip title={user?.createDate.toLocaleString()}>
                 <Joy.Typography level="body-md">Joined {createDate}</Joy.Typography>
             </Joy.Tooltip>
-            <Components.FlashcardsetListing path={`/users/${this.props.id}`}
-                style={{
-                    flex: "1",
-                    marginTop: 40
-                }}
-            />
+            <Components.FlashcardsetListing path={`/users/${this.props.id}`} style={{ flex: "1" }}/>
         </Components.Wrapper>;
     };
 }
