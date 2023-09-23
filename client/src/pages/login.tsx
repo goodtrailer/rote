@@ -1,8 +1,10 @@
 import * as Joy from "@mui/joy";
 import * as React from "react";
 import * as ReactRouter from "react-router-dom";
+import * as Typia from "typia";
 
 import * as Components from "#~/components/components.js";
+import * as Shared from "rote-shared/shared.js";
 import * as Util from "#~/lib/util.js";
 
 type Props = {
@@ -16,6 +18,17 @@ class State {
 
 class LoginImpl extends React.Component<Props, State> {
     state = new State();
+
+    componentDidMount = (): void => {
+        type ResponseBodyType = {
+            user: Shared.User,
+            flashcardsets: Shared.Flashcardset[],
+        };
+
+        Util.get("users", Typia.createValidate<ResponseBodyType>(), Util.dateReviver("createDate"))
+            .then(_ => this.props.navigate("/flashcardsets"))
+            .catch(console.log);
+    }
 
     onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();

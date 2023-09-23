@@ -56,7 +56,7 @@ export class Wrapper extends React.Component<React.PropsWithChildren<Props>, Sta
 
         Util.get("users", Typia.createValidate<ResponseBodyType>(), Util.dateReviver("createDate"))
             .then(b => this.setState({ user: b.user }))
-            .catch(() => this.setState({ user: undefined }));
+            .catch(_ => this.setState({ user: undefined }));
     }
 
     render = (): React.ReactNode => {
@@ -76,7 +76,13 @@ export class Wrapper extends React.Component<React.PropsWithChildren<Props>, Sta
                 gap: 30,
                 zIndex: 50,
             }}>
-                <Joy.Link level="h1" variant="plain" color="neutral" component={ReactRouter.Link} to={"/"} sx={{ marginY: "auto" }}>rote</Joy.Link>
+                <Joy.Link level="h1" variant="plain" color="neutral"
+                    component={ReactRouter.Link}
+                    to={user ? "/flashcardsets" : "/"}
+                    sx={{ marginY: "auto" }}
+                >
+                    rote
+                </Joy.Link>
                 <PageLink to={"/flashcardsets"}>flashcards</PageLink>
                 <PageLink disabled={user === undefined} to={`/users/${user?.id}`}>
                     {user?.username ?? "profile"}

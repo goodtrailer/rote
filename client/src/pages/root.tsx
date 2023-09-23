@@ -1,15 +1,33 @@
 import * as Joy from "@mui/joy";
 import * as React from "react";
 import * as ReactRouter from "react-router-dom";
+import * as Typia from "typia";
 
 import * as Components from "#~/components/components.js";
+import * as Shared from "rote-shared/shared.js";
+import * as Util from "#~/lib/util.js";
+
+type Props = {
+    navigate: ReactRouter.NavigateFunction;
+}
 
 class State {
     isFront: boolean = true;
 }
 
-export class Root extends React.Component<unknown, State> {
+class RootImpl extends React.Component<Props, State> {
     state = new State();
+
+    componentDidMount = (): void => {
+        type ResponseBodyType = {
+            user: Shared.User,
+            flashcardsets: Shared.Flashcardset[],
+        };
+
+        Util.get("users", Typia.createValidate<ResponseBodyType>(), Util.dateReviver("createDate"))
+            .then(_ => this.props.navigate("/flashcardsets"))
+            .catch(console.log);
+    }
 
     onFlip = (isFront: boolean): void => {
         this.setState({ isFront });
@@ -57,4 +75,9 @@ export class Root extends React.Component<unknown, State> {
             </div>
         </Components.Wrapper>;
     };
+}
+
+export function Root(): React.ReactNode {
+    const navigate = ReactRouter.useNavigate();
+    return <RootImpl navigate={navigate}/>;
 }
