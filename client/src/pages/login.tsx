@@ -26,7 +26,7 @@ class LoginImpl extends React.Component<Props, State> {
         };
 
         Util.get("users", Typia.createValidate<ResponseBodyType>(), Util.dateReviver("createDate"))
-            .then(_ => this.props.navigate("/flashcardsets"))
+            .then(_ => this.props.navigate("/flashcardsets", { replace: true }))
             .catch(console.log);
     }
 
