@@ -66,7 +66,7 @@ const get: Express.RequestHandler = async (req, res, next) => {
 
 const post: Express.RequestHandler = async (req, res, next) => {
     type RequestBodyType = {
-        flashcardset: Omit<Shared.Flashcardset, "creatorId" | "createDate" | "stars" | "views" | "id">,
+        flashcardset: Omit<Shared.Flashcardset, "creator" | "creatorId" | "createDate" | "stars" | "views" | "id">,
         flashcards: Omit<Shared.Flashcard, "id">[],
     };
 

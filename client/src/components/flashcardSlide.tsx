@@ -15,7 +15,7 @@ class State {
     isGotoError: boolean = false;
 }
 
-export class FlashcardSlide extends React.Component<Props, State> {
+export class FlashcardSlide extends React.Component<React.PropsWithChildren<Props>, State> {
     static defaultProps = new Props();
 
     state = new State();
@@ -109,6 +109,16 @@ export class FlashcardSlide extends React.Component<Props, State> {
                 <Joy.Button size="lg" variant="plain" color="neutral" onClick={this.onRight}>
                     {"->"}
                 </Joy.Button>
+
+                <div style={{
+                    position: "absolute", top: "50%", right: 20,
+                    transform: "translate(0%, -50%)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                }}>
+                    {this.props.children}
+                </div>
             </div>
         </div>;
     };
