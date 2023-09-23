@@ -41,16 +41,22 @@ class IdImpl extends React.Component<Props, State> {
         if (this.state.error !== undefined)
             throw this.state.error;
 
+        const cards = this.state.flashcards;
+        const set = this.state.flashcardset;
+
         return <Components.Wrapper>
-            <Components.FlashcardSlide cards={this.state.flashcards}
+            <Components.FlashcardSlide cards={cards}
                 style={{
                     width: "100%",
                     minWidth: 450, maxWidth: 700,
                     marginBottom: 30,
                 }}
             />
-            <Joy.Typography level="h3" variant="plain" color="neutral">{this.state.flashcardset?.name}</Joy.Typography>
-            <Joy.Typography level="body-lg">{this.state.flashcardset?.description}</Joy.Typography>
+            <Joy.Typography level="h3" variant="plain" color="neutral">{set?.name}</Joy.Typography>
+            <Joy.Typography level="title-lg">
+                by <Components.Link to={`/users/${set?.creatorId}`}>{set?.creator}</Components.Link>
+            </Joy.Typography>
+            <Joy.Typography level="body-lg">{set?.description}</Joy.Typography>
         </Components.Wrapper>;
     };
 }

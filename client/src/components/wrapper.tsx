@@ -78,7 +78,7 @@ export class Wrapper extends React.Component<React.PropsWithChildren<Props>, Sta
             }}>
                 <Joy.Link level="h1" variant="plain" color="neutral" component={ReactRouter.Link} to={"/"} sx={{ marginY: "auto" }}>rote</Joy.Link>
                 <PageLink to={"/flashcardsets"}>flashcards</PageLink>
-                <PageLink disabled={user === undefined} to={`/user/${user?.id}`}>
+                <PageLink disabled={user === undefined} to={`/users/${user?.id}`}>
                     {user?.username ?? "profile"}
                 </PageLink>
                 <PageLink to={"/about"}>about</PageLink>

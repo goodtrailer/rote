@@ -5,7 +5,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "cd ../shared && npx tsc && cd ../server && npx tsc && cp -r src/views out",
+    "build": "cd ../shared && npx tsc && cd ../server && npx tsc",
     "clean": "rm -rf out && rm tsconfig.tsbuildinfo",
     "start": "node out/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",

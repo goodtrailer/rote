@@ -15,6 +15,7 @@ export function register(upper: Express.Router) {
 const get: Express.RequestHandler = async (req, res, next) => {
     type ResponseBodyType = {
         user: Shared.User,
+        count: number,
         flashcardsets: Shared.Flashcardset[],
     };
 
@@ -61,6 +62,11 @@ const get: Express.RequestHandler = async (req, res, next) => {
             .orderBy("createDate", "desc")
             .offset(begin)
             .limit(count);
+        
+        const total = await Db.Pg<Models.Flashcardset>("flashcardsets")
+            .where("creatorId", id)
+            .count()
+            .first();
 
         const u = Util.reduce(user, Shared.User);
         const s = sets.map(setModel => {
@@ -68,8 +74,9 @@ const get: Express.RequestHandler = async (req, res, next) => {
             set.creator = u.username;
             return set;
         });
+        const t = total !== undefined ? Number(total["count"]) : 0;
 
-        const body: ResponseBodyType = { user: u, flashcardsets: s};
+        const body: ResponseBodyType = { user: u, flashcardsets: s, count: t};
         res.json(body);
     } catch (e) {
         Util.error(e);

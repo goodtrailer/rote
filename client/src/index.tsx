@@ -34,6 +34,10 @@ const router = ReactRouter.createBrowserRouter([
                 path: "signup",
                 element: <Pages.Signup/>,
             },
+            {
+                path: "users/:id",
+                element: <Pages.Users.Id/>,
+            },
         ],
     }
 ]);
