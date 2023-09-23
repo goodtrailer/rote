@@ -133,7 +133,7 @@ class FlashcardsetListingImpl extends React.Component<Props, State> {
                     <Joy.Typography level="body-md">
                         by <Link to={to}>{s.creator}</Link>
                     </Joy.Typography>
-                    <div style={{ flex: "1" }}/>
+                    <div style={{ flex: 1 }}/>
                     <Joy.Tooltip title={s.createDate.toLocaleString()}>
                         <Joy.Typography level="body-md">
                             {Dayjs().to(s.createDate)}
@@ -155,7 +155,7 @@ class FlashcardsetListingImpl extends React.Component<Props, State> {
                 page={this.state.page}
                 onClick={this.onPageArrow}
             />
-            <Joy.Grid container spacing={4} sx={{ flex: "1", width: "100%" }}>
+            <Joy.Grid container spacing={4} sx={{ flex: 1, width: "100%" }}>
                 {links}
             </Joy.Grid>
             <PageArrows pageCount={this.state.pageCount}

@@ -88,7 +88,10 @@ export class Wrapper extends React.Component<React.PropsWithChildren<Props>, Sta
                     {user?.username ?? "profile"}
                 </PageLink>
                 <PageLink to={"/about"}>about</PageLink>
-                <div style={{ flex: "1" }}/>
+                <div style={{ flex: 1 }}/>
+                <PageLink disabled={user === undefined} to={"/flashcardsets/new"}>
+                    create
+                </PageLink>
                 <PageLink to={user ? "/logout" : "/signup"}>
                     {user ? "log out" : "sign up"}
                 </PageLink>

@@ -85,9 +85,11 @@ const post: Express.RequestHandler = async (req, res, next) => {
         const flashcardset = req.body.flashcardset;
         const flashcards = req.body.flashcards;
 
+        console.log(req.body);
+
         const nameSize = Buffer.byteLength(flashcardset.name);
-        if (nameSize < 8 || nameSize > 80) {
-            res.status(400).send("Name not 8 to 80 bytes long");
+        if (nameSize < 4 || nameSize > 80) {
+            res.status(400).send("Name not 4 to 80 bytes long");
             return;
         }
 
@@ -97,18 +99,23 @@ const post: Express.RequestHandler = async (req, res, next) => {
             return;
         }
 
+        if (flashcards.length < 1) {
+            res.status(400).send("Flashcardset contains no flashcards");
+            return;
+        }
+
         for (let i = 0; i < flashcards.length; i++) {
             const f = flashcards[i];
 
             const frontSize = Buffer.byteLength(f.front);
-            if (frontSize < 8 || frontSize > 3000) {
-                res.status(400).send("Front over 3000 bytes long; idx = " + i);
+            if (frontSize < 1 || frontSize > 3000) {
+                res.status(400).send("Front not 1 to 3000 bytes long; index = " + i);
                 return;
             }
 
             const backSize = Buffer.byteLength(f.front);
-            if (backSize < 8 || backSize > 3000) {
-                res.status(400).send("Back over 3000 bytes long; idx = " + i);
+            if (backSize < 1 || backSize > 3000) {
+                res.status(400).send("Back not 1 to 3000 bytes long; index = " + i);
                 return;
             }
         }

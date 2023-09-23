@@ -27,6 +27,10 @@ const router = ReactRouter.createBrowserRouter([
                 element: <Pages.Flashcardsets.Id/>,
             },
             {
+                path: "flashcardsets/new",
+                element: <Pages.Flashcardsets.New/>,
+            },
+            {
                 path: "login",
                 element: <Pages.Login/>,
             },
