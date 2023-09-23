@@ -1,3 +1,6 @@
+import Url from "node:url";
+import QueryString from "node:querystring";
+
 import Express from "express";
 
 import * as Db from "#~/lib/db.js";
@@ -34,7 +37,10 @@ const get: Express.RequestHandler = async (req, res, next) => {
                 return;
             }
 
-            res.redirect(`${user.id}`);
+            res.redirect(Url.format({
+                pathname: `/users/${user.id}`,
+                query: req.query as QueryString.ParsedUrlQueryInput,
+            }));
         }
 
         const user = await Db.Pg<Models.User>("users")

@@ -1,3 +1,6 @@
+import Url from "node:url";
+import QueryString from "node:querystring";
+
 import Bcrypt from "bcrypt";
 import Express from "express";
 
@@ -21,7 +24,10 @@ const get: Express.RequestHandler = (req, res) => {
         return;
     }
 
-    res.redirect(`/users/${req.user.id}`);
+    res.redirect(Url.format({
+        pathname: `/users/${req.user.id}`,
+        query: req.query as QueryString.ParsedUrlQueryInput,
+    }));
 }
 
 const post: Express.RequestHandler = async (req, res, next) => {
