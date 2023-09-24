@@ -1,9 +1,9 @@
-import * as Dayjs from "dayjs";
+import Dayjs from "dayjs";
+import RelativeTime from "dayjs/plugin/relativeTime";
 import * as Joy from "@mui/joy";
 import { SxProps } from "@mui/joy/styles/types";
 import * as React from "react";
 import * as ReactRouter from "react-router-dom";
-import * as RelativeTime from "dayjs/plugin/relativeTime";
 import * as Typia from "typia";
 
 import * as Shared from "rote-shared/shared.js";

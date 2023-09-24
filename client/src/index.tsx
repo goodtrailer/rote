@@ -48,7 +48,7 @@ const router = ReactRouter.createBrowserRouter([
             },
         ],
     }
-]);
+], { basename: import.meta.env["VITE_BASE"] });
 
 ReactDom.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
