@@ -40,6 +40,9 @@ jobs:
       - name: Install dependencies
         working-directory: ./client
         run: npm install
+      - name: Install dependencies (./shared)
+        working-directory: ./shared
+        run: npm install
       - name: Build
         working-directory: ./client
         run: npm run build
