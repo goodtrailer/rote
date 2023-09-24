@@ -44,7 +44,7 @@ jobs:
         working-directory: ./shared
         run: npm install
       - name: Create .env
-        working-directory: ./shared
+        working-directory: ./client
         run: printf 'VITE_PROXY=http://localhost:4000\nVITE_BASE="/rote"' >> .env
       - name: Build
         working-directory: ./client
