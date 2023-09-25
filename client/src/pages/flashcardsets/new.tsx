@@ -26,7 +26,7 @@ export class NewImpl extends React.Component<Props, State> {
     onAdd = (): void => {
         this.state.keys.push(this.state.nextKey);
         this.setState({ keys: this.state.keys, nextKey: this.state.nextKey + 1 });
-    }
+    };
 
     onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
         e.preventDefault();
@@ -47,7 +47,7 @@ export class NewImpl extends React.Component<Props, State> {
             return {
                 front: data.get(`${key}front`)?.toString() ?? "",
                 back: data.get(`${key}back`)?.toString() ?? "",
-            }
+            };
         });
 
         const body: RequestBodyType = { flashcardset, flashcards };
@@ -65,12 +65,12 @@ export class NewImpl extends React.Component<Props, State> {
                 this.props.navigate(res.headers.get("Location") ?? "/flashcardsets");
             })
             .catch(e => this.setState({ error: e }));
-    }
+    };
 
     onRemove = (index: number): void => {
         this.state.keys.splice(index, 1);
         this.setState({ keys: this.state.keys });
-    }
+    };
 
     render = (): React.ReactNode => {
         if (this.state.error !== undefined)
@@ -118,7 +118,7 @@ export class NewImpl extends React.Component<Props, State> {
                 </Joy.Card>
             </form>
         </Components.Wrapper>;
-    }
+    };
 }
 
 export function New(): React.ReactNode {

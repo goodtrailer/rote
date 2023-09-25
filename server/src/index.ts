@@ -1,6 +1,3 @@
-import Path from "node:path";
-import Url from "node:url";
-
 import Cors from "cors";
 import Express from "express";
 import ExpressSession from "express-session";
@@ -13,9 +10,6 @@ console.log(Constants);
 // Initialization
 
 const app = Express();
-
-app.set("views", Path.join(Path.dirname(Url.fileURLToPath(import.meta.url)), "views"));
-app.set("view engine", "ejs");
 
 // Middleware
 

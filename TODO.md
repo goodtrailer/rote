@@ -2,8 +2,8 @@
 
 ## Client
 ### High Priority
-* /flashcardsets/:id (stars, delete)
-* /flashcardsets/new
+* /flashcardsets/:id (stars)
+* storing user in localStorage (much faster)
 ### Low Priority
 * flashcardsets/:id (editing)
 * could reuse page arrows for flashcard slide, though IMO it looks bad so maybe not
@@ -15,6 +15,3 @@
 ### Low Priority
 * PUT flashcardsets/:id
 
-## Misc
-* host somewhere (probably another oracle cloud server)
-* either setup guide or docker

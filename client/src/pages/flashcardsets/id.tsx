@@ -3,8 +3,8 @@ import * as React from "react";
 import * as ReactRouter from "react-router";
 import * as Typia from "typia";
 
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 
 import * as Components from "#~/components/components.js";
 import * as Shared from "rote-shared/shared.js";
@@ -60,11 +60,11 @@ class IdImpl extends React.Component<Props, State> {
 
     onCancel = (): void => {
         this.setState({ isDeleting: false });
-    }
+    };
 
     onDelete = (): void => {
         this.setState({ isDeleting: true });
-    }
+    };
 
     onConfirm = (): void => {
         Util.req(`/flashcardsets/${this.props.id}`, { method: "DELETE" })
@@ -75,10 +75,10 @@ class IdImpl extends React.Component<Props, State> {
                 this.props.navigate("/flashcardsets");
             })
             .catch(e => this.setState({error: e}));
-    }
+    };
 
     onStar = (): void => {
-    }
+    };
 
     render = (): React.ReactNode => {
         if (this.state.error !== undefined)

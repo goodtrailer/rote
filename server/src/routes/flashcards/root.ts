@@ -28,4 +28,4 @@ const get: Express.RequestHandler = async (_req, res, next) => {
         Util.error(e);
         next(e);
     }
-}
+};
