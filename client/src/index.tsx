@@ -9,6 +9,10 @@ const createRouter = import.meta.env["VITE_HASH_ROUTER"] === "true"
     ? ReactRouter.createHashRouter
     : ReactRouter.createBrowserRouter;
 
+const options = import.meta.env["VITE_HASH_ROUTER"] === "true"
+    ? { }
+    : { basename: "/rote" };
+
 const router = createRouter([
     {
         path: "/",
@@ -52,7 +56,7 @@ const router = createRouter([
             },
         ],
     }
-], { basename: import.meta.env["VITE_BASE"] });
+], options);
 
 ReactDom.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
