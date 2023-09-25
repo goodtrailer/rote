@@ -85,8 +85,6 @@ const post: Express.RequestHandler = async (req, res, next) => {
         const flashcardset = req.body.flashcardset;
         const flashcards = req.body.flashcards;
 
-        console.log(req.body);
-
         const nameSize = Buffer.byteLength(flashcardset.name);
         if (nameSize < 4 || nameSize > 80) {
             res.status(400).send("Name not 4 to 80 bytes long");
