@@ -5,7 +5,11 @@ import * as ReactRouter from "react-router-dom";
 
 import * as Pages from "./pages/pages.js";
 
-const router = ReactRouter.createBrowserRouter([
+const createRouter = import.meta.env["VITE_HASH_ROUTER"] === "true"
+    ? ReactRouter.createHashRouter
+    : ReactRouter.createBrowserRouter;
+
+const router = createRouter([
     {
         path: "/",
         errorElement: <Pages.Error/>,

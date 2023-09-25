@@ -45,7 +45,7 @@ jobs:
         run: npm install
       - name: Create .env
         working-directory: ./client
-        run: printf 'VITE_PROXY=https://165.1.76.44\nVITE_BASE="/rote"' >> .env
+        run: printf 'VITE_PROXY=https://165.1.76.44\nVITE_BASE="/rote"\nVITE_HASH_ROUTER="true"' >> .env
       - name: Build
         working-directory: ./client
         run: npm run build
