@@ -13,20 +13,45 @@ type Props = {
 
 class State {
     isFront: boolean = true;
+    flashcardsets: number = 0;
+    flashcards: number = 0;
+    error?: unknown = undefined;
 }
 
 class RootImpl extends React.Component<Props, State> {
     state = new State();
 
     componentDidMount = (): void => {
-        type ResponseBodyType = {
-            user: Shared.User,
-            flashcardsets: Shared.Flashcardset[],
-        };
+        {
+            type ResponseBodyType = {
+                user: Shared.User,
+                flashcardsets: Shared.Flashcardset[],
+            };
+    
+            Util.get("users", Typia.createValidate<ResponseBodyType>(), Util.dateReviver("createDate"))
+                .then(_ => this.props.navigate("/flashcardsets", { replace: true }))
+                .catch(console.log);
+        }
 
-        Util.get("users", Typia.createValidate<ResponseBodyType>(), Util.dateReviver("createDate"))
-            .then(_ => this.props.navigate("/flashcardsets", { replace: true }))
-            .catch(console.log);
+        {
+            type ResponseBodyType = {
+                count: number,
+            };
+
+            Util.get("flashcards", Typia.createValidate<ResponseBodyType>())
+                .then(b => this.setState({ flashcards: b.count }))
+                .catch(e => this.setState({ error: e }));
+        }
+
+        {
+            type ResponseBodyType = {
+                count: number,
+            };
+
+            Util.get("flashcardsets", Typia.createValidate<ResponseBodyType>())
+                .then(b => this.setState({ flashcardsets: b.count }))
+                .catch(e => this.setState({ error: e }));
+        }
     };
 
     onFlip = (isFront: boolean): void => {
@@ -37,6 +62,9 @@ class RootImpl extends React.Component<Props, State> {
         const text = this.state.isFront
             ? "rote"
             : "mechanical or habitual repetition of something to be learned.\n\n".repeat(50);
+
+        const cards = this.state.flashcards;
+        const sets = this.state.flashcardsets;
 
         return <Components.Wrapper>
             <div style={{ marginTop: 50, display: "flex", flexDirection: "row", gap: 40, width: "80%" }}>
@@ -69,9 +97,8 @@ class RootImpl extends React.Component<Props, State> {
                 </div>
             </div>
             <div style={{ marginTop: 100, display: "flex", gap: 100, justifyContent: "center" }}>
-                <Joy.Typography level="h2" textColor="neutral.plainColor">XXX users</Joy.Typography>
-                <Joy.Typography level="h2" textColor="neutral.plainColor">XXX flashcardsets</Joy.Typography>
-                <Joy.Typography level="h2" textColor="neutral.plainColor">XXX flashcards</Joy.Typography>
+                <Joy.Typography level="h2" textColor="neutral.plainColor">{sets} flashcardsets</Joy.Typography>
+                <Joy.Typography level="h2" textColor="neutral.plainColor">{cards} flashcards</Joy.Typography>
             </div>
         </Components.Wrapper>;
     };

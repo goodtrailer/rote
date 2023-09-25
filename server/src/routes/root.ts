@@ -5,6 +5,7 @@ export function register(upper: Express.Router) {
     upper.use("/", router);
 
     import("./flashcardsets/root.js").then(m => m.register(router));
+    import("./flashcards/root.js").then(m => m.register(router));
     import("./login.js").then(m => m.register(router));
     import("./logout.js").then(m => m.register(router));
     import("./users/root.js").then(m => m.register(router));
