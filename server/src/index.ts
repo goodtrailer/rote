@@ -26,7 +26,7 @@ const sessionOptions: ExpressSession.SessionOptions = {
     saveUninitialized: true,
     cookie: {
         maxAge: 604800_000,
-        secure: false,
+        secure: Constants.HTTPS,
     },
 };
 
