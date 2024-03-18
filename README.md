@@ -1,7 +1,7 @@
 # rote
 web app for creating, browsing, and studying flashcards
 
-https://goodtrailer.github.io/rote/
+https://rote.aldw.net
 
 ### stack
 joy ui, react, ejs (temp), passport.js, express.js, node.js
