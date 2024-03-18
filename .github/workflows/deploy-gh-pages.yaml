@@ -49,9 +49,6 @@ jobs:
       - name: Build
         working-directory: ./client
         run: npm run build
-      - name: Create CNAME
-        working-directory: ./client/out
-        run: printf 'rote.aldw.net' >> CNAME
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
