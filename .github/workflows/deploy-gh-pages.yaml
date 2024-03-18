@@ -45,10 +45,13 @@ jobs:
         run: npm install
       - name: Create .env
         working-directory: ./client
-        run: printf 'VITE_PROXY=https://roteapi.aldw.net\nVITE_BASE="/rote"\nVITE_HASH_ROUTER="true"' >> .env
+        run: printf 'VITE_PROXY=https://roteapi.aldw.net\nVITE_BASE="/"\nVITE_HASH_ROUTER="false"' >> .env
       - name: Build
         working-directory: ./client
         run: npm run build
+      - name: Create CNAME (? might not be required)
+        working-directory: ./client
+        run: printf 'rote.aldw.net' >> CNAME
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
