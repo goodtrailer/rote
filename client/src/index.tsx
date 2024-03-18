@@ -11,7 +11,7 @@ const createRouter = import.meta.env["VITE_HASH_ROUTER"] === "true"
 
 const options = import.meta.env["VITE_HASH_ROUTER"] === "true"
     ? { }
-    : { basename: "/rote" };
+    : { basename: import.meta.env["VITE_BASE"] };
 
 const router = createRouter([
     {
