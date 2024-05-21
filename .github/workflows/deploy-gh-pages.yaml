@@ -45,7 +45,7 @@ jobs:
         run: npm install
       - name: Create .env
         working-directory: ./client
-        run: printf 'VITE_PROXY=https://roteapi.aldw.net\nVITE_BASE="/"\nVITE_HASH_ROUTER="false"' >> .env
+        run: printf 'VITE_PROXY=https://roteapi.aldw.net\nVITE_BASE="/"\nVITE_HASH_ROUTER="true"' >> .env
       - name: Build
         working-directory: ./client
         run: npm run build
